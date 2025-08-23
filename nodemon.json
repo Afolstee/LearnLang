@@ -1,8 +1,8 @@
 {
-  "watch": ["src"],
+  "watch": ["server", "client", "shared"],
   "ext": "ts,js,json",
-  "ignore": ["src/**/*.spec.ts", "src/**/*.test.ts"],
-  "exec": "cross-env NODE_ENV=development ts-node src/index.ts",
+  "ignore": ["server/**/*.spec.ts", "server/**/*.test.ts", "client/**/*.spec.ts", "client/**/*.test.ts"],
+  "exec": "cross-env NODE_ENV=development tsx server/index.ts",
   "env": {
     "NODE_ENV": "development"
   }

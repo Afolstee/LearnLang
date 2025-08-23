@@ -8,6 +8,9 @@ import { api } from "@/lib/api";
 import { useToast } from "@/hooks/use-toast";
 import type { Language, Level } from "@shared/schema";
 
+// Import the User type from your API lib instead of defining locally
+import type { User } from "@/lib/api";
+
 const languages = [
   {
     code: "spanish" as Language,
@@ -70,7 +73,7 @@ export default function Home() {
   const createUserMutation = useMutation({
     mutationFn: (userData: { username: string; nativeLanguage: Language; currentLevel: Level }) =>
       api.createUser(userData),
-    onSuccess: (user) => {
+    onSuccess: (user: User) => { // Fixed: Added proper typing
       localStorage.setItem("userId", user.id);
       localStorage.setItem("nativeLanguage", user.nativeLanguage);
       localStorage.setItem("currentLevel", user.currentLevel);

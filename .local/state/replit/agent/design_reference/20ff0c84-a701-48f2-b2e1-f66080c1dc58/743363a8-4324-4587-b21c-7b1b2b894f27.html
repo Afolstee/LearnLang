@@ -1,0 +1,796 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Content Curator - ESL Learning Platform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#10B981',
+                        accent: '#F59E0B',
+                        secondary: '#3B82F6',
+                        success: '#059669',
+                        muted: '#6B7280'
+                    },
+                    fontFamily: {
+                        'sans': ['Inter', 'system-ui', 'sans-serif']
+                    }
+                }
+            }
+        };
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-50 font-sans">
+    <!-- @COMPONENT: Navigation [mobile-responsive header with logo and navigation] -->
+    <nav class="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-primary rounded-full flex items-center justify-center">
+                        <i class="fas fa-graduation-cap text-white text-lg"></i>
+                    </div>
+                    <h1 class="text-xl font-bold text-gray-900">LinguaLearn</h1>
+                </div>
+                
+                <div class="hidden md:flex items-center space-x-6">
+                    <button class="nav-btn text-gray-600 hover:text-primary transition-colors duration-200" data-section="home">
+                        <i class="fas fa-home mr-2"></i>Home
+                    </button>
+                    <button class="nav-btn text-gray-600 hover:text-primary transition-colors duration-200" data-section="articles">
+                        <i class="fas fa-newspaper mr-2"></i>Articles
+                    </button>
+                    <button class="nav-btn text-gray-600 hover:text-primary transition-colors duration-200" data-section="progress">
+                        <i class="fas fa-chart-line mr-2"></i>Progress
+                    </button>
+                </div>
+
+                <div class="flex items-center space-x-4">
+                    <div class="hidden sm:flex items-center space-x-2 bg-gray-100 rounded-full px-3 py-1">
+                        <i class="fas fa-fire text-accent text-sm"></i>
+                        <span class="text-sm font-medium" data-bind="user.streak">7 day streak</span>
+                    </div>
+                    <button class="md:hidden text-gray-600">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- @END_COMPONENT: Navigation -->
+
+    <!-- @COMPONENT: HomePage [language selection and onboarding] -->
+    <section id="home-section" class="section-content">
+        <div class="max-w-4xl mx-auto px-4 py-12">
+            <!-- Hero Section -->
+            <div class="text-center mb-12">
+                <div class="mb-6">
+                    <!-- Diverse language learners using technology for education -->
+                    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=400" alt="Diverse students learning together" class="rounded-xl shadow-lg w-full h-64 object-cover">
+                </div>
+                <h1 class="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
+                    Master English with 
+                    <span class="text-primary">Smart Content</span>
+                </h1>
+                <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+                    Learn English through personalized articles adapted to your native language and skill level
+                </p>
+            </div>
+
+            <!-- Language Selection -->
+            <div class="mb-12">
+                <h2 class="text-2xl font-semibold text-gray-900 text-center mb-8">Choose Your Native Language</h2>
+                <div class="grid md:grid-cols-3 gap-6 max-w-3xl mx-auto">
+                    <!-- @MAP: languages.map(language => ( -->
+                    <div class="language-card bg-white rounded-xl p-6 border-2 border-gray-200 hover:border-primary hover:shadow-lg transition-all duration-300 cursor-pointer group" data-language="spanish">
+                        <div class="text-center">
+                            <div class="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-red-500 to-yellow-500 rounded-full flex items-center justify-center text-white text-2xl font-bold">
+                                ES
+                            </div>
+                            <h3 class="text-lg font-semibold text-gray-900 group-hover:text-primary transition-colors">Español</h3>
+                            <p class="text-sm text-gray-600 mt-2">Spanish</p>
+                            <div class="mt-4 text-xs text-gray-500">
+                                <span data-bind="spanish.learners">2.3M learners</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="language-card bg-white rounded-xl p-6 border-2 border-gray-200 hover:border-primary hover:shadow-lg transition-all duration-300 cursor-pointer group" data-language="french">
+                        <div class="text-center">
+                            <div class="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-blue-600 to-blue-400 rounded-full flex items-center justify-center text-white text-2xl font-bold">
+                                FR
+                            </div>
+                            <h3 class="text-lg font-semibold text-gray-900 group-hover:text-primary transition-colors">Français</h3>
+                            <p class="text-sm text-gray-600 mt-2">French</p>
+                            <div class="mt-4 text-xs text-gray-500">
+                                <span data-bind="french.learners">1.8M learners</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="language-card bg-white rounded-xl p-6 border-2 border-gray-200 hover:border-primary hover:shadow-lg transition-all duration-300 cursor-pointer group" data-language="mandarin">
+                        <div class="text-center">
+                            <div class="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-red-600 to-yellow-500 rounded-full flex items-center justify-center text-white text-2xl font-bold">
+                                中
+                            </div>
+                            <h3 class="text-lg font-semibold text-gray-900 group-hover:text-primary transition-colors">中文</h3>
+                            <p class="text-sm text-gray-600 mt-2">Mandarin</p>
+                            <div class="mt-4 text-xs text-gray-500">
+                                <span data-bind="mandarin.learners">3.1M learners</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- @END_MAP )) -->
+                </div>
+            </div>
+
+            <!-- Features Overview -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+                <div class="text-center p-6 bg-white rounded-xl shadow-sm">
+                    <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-brain text-primary text-xl"></i>
+                    </div>
+                    <h3 class="font-semibold text-gray-900 mb-2">AI-Powered Content</h3>
+                    <p class="text-sm text-gray-600">Articles adapted to your level and cultural background</p>
+                </div>
+
+                <div class="text-center p-6 bg-white rounded-xl shadow-sm">
+                    <div class="w-12 h-12 bg-secondary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-mouse-pointer text-secondary text-xl"></i>
+                    </div>
+                    <h3 class="font-semibold text-gray-900 mb-2">Click-to-Define</h3>
+                    <p class="text-sm text-gray-600">Instant definitions and cultural context for any word</p>
+                </div>
+
+                <div class="text-center p-6 bg-white rounded-xl shadow-sm">
+                    <div class="w-12 h-12 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-chart-line text-accent text-xl"></i>
+                    </div>
+                    <h3 class="font-semibold text-gray-900 mb-2">Progress Tracking</h3>
+                    <p class="text-sm text-gray-600">Monitor your learning journey and achievements</p>
+                </div>
+
+                <div class="text-center p-6 bg-white rounded-xl shadow-sm">
+                    <div class="w-12 h-12 bg-success/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-globe text-success text-xl"></i>
+                    </div>
+                    <h3 class="font-semibold text-gray-900 mb-2">Cultural Bridge</h3>
+                    <p class="text-sm text-gray-600">Learn concepts through your cultural lens</p>
+                </div>
+            </div>
+
+            <!-- CTA Button -->
+            <div class="text-center">
+                <button class="bg-primary hover:bg-primary/90 text-white font-semibold py-4 px-8 rounded-xl transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl" data-event="click:startLearning">
+                    <i class="fas fa-rocket mr-2"></i>
+                    Start Learning Now
+                </button>
+            </div>
+        </div>
+    </section>
+    <!-- @END_COMPONENT: HomePage -->
+
+    <!-- @COMPONENT: ArticlesFeed [main content area with articles and interactions] -->
+    <section id="articles-section" class="section-content hidden">
+        <div class="max-w-6xl mx-auto px-4 py-8">
+            <!-- Header with Filters -->
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 space-y-4 sm:space-y-0">
+                <div>
+                    <h1 class="text-3xl font-bold text-gray-900 mb-2">Your Learning Feed</h1>
+                    <p class="text-gray-600">Articles curated for your Spanish background • Intermediate level</p>
+                </div>
+                
+                <div class="flex items-center space-x-4">
+                    <select class="bg-white border border-gray-300 rounded-lg px-4 py-2 text-sm focus:ring-2 focus:ring-primary focus:border-primary">
+                        <option>All Levels</option>
+                        <option>A1 - Beginner</option>
+                        <option>A2 - Elementary</option>
+                        <option>B1 - Intermediate</option>
+                        <option>B2 - Upper Intermediate</option>
+                        <option>C1 - Advanced</option>
+                        <option>C2 - Proficient</option>
+                    </select>
+                    
+                    <select class="bg-white border border-gray-300 rounded-lg px-4 py-2 text-sm focus:ring-2 focus:ring-primary focus:border-primary">
+                        <option>All Topics</option>
+                        <option>Business</option>
+                        <option>Technology</option>
+                        <option>Culture</option>
+                        <option>Travel</option>
+                        <option>Science</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Article Cards -->
+            <div class="grid lg:grid-cols-2 gap-8">
+                <!-- @MAP: articles.map(article => ( -->
+                <article class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow duration-200">
+                    <!-- Modern office workers collaborating on technology projects -->
+                    <img src="https://images.unsplash.com/photo-1556761175-b413da4baf72?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=300" alt="Modern office collaboration" class="w-full h-48 object-cover">
+                    
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="flex items-center space-x-2">
+                                <span class="bg-secondary text-white text-xs font-medium px-2 py-1 rounded-full">B1</span>
+                                <span class="text-xs text-gray-500">Technology</span>
+                                <span class="text-xs text-gray-400">•</span>
+                                <span class="text-xs text-gray-500">8 min read</span>
+                            </div>
+                            <div class="flex items-center space-x-1">
+                                <i class="fas fa-star text-accent text-sm"></i>
+                                <span class="text-xs text-gray-600" data-bind="article.difficulty">4.2</span>
+                            </div>
+                        </div>
+                        
+                        <h2 class="text-xl font-semibold text-gray-900 mb-3 hover:text-primary cursor-pointer transition-colors">
+                            <span data-bind="article.title">The Future of Remote Work in Technology Companies</span>
+                        </h2>
+                        
+                        <div class="article-content mb-4 text-gray-700 leading-relaxed">
+                            <p>The pandemic has <span class="definable-word cursor-pointer hover:bg-yellow-100 px-1 rounded transition-colors" data-word="accelerated" data-definition="made faster; sped up" data-cultural-note="In Spanish: 'acelerado' - similar concept">accelerated</span> changes in how we work. Many technology companies are now <span class="definable-word cursor-pointer hover:bg-yellow-100 px-1 rounded transition-colors" data-word="embracing" data-definition="accepting eagerly; welcoming" data-cultural-note="Unlike traditional Spanish work culture which values physical presence">embracing</span> permanent remote work policies...</p>
+                        </div>
+                        
+                        <div class="flex items-center justify-between">
+                            <button class="text-primary hover:text-primary/80 font-medium text-sm transition-colors" data-event="click:readArticle">
+                                <i class="fas fa-book-open mr-2"></i>Continue Reading
+                            </button>
+                            
+                            <div class="flex items-center space-x-3">
+                                <button class="text-gray-400 hover:text-red-500 transition-colors" data-event="click:saveArticle">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="text-gray-400 hover:text-blue-500 transition-colors" data-event="click:shareArticle">
+                                    <i class="fas fa-share"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow duration-200">
+                    <!-- International business meeting with diverse professionals -->
+                    <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=300" alt="International business meeting" class="w-full h-48 object-cover">
+                    
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="flex items-center space-x-2">
+                                <span class="bg-accent text-white text-xs font-medium px-2 py-1 rounded-full">A2</span>
+                                <span class="text-xs text-gray-500">Business</span>
+                                <span class="text-xs text-gray-400">•</span>
+                                <span class="text-xs text-gray-500">5 min read</span>
+                            </div>
+                            <div class="flex items-center space-x-1">
+                                <i class="fas fa-star text-accent text-sm"></i>
+                                <span class="text-xs text-gray-600">3.8</span>
+                            </div>
+                        </div>
+                        
+                        <h2 class="text-xl font-semibold text-gray-900 mb-3 hover:text-primary cursor-pointer transition-colors">
+                            Building Professional Relationships in English-Speaking Workplaces
+                        </h2>
+                        
+                        <div class="article-content mb-4 text-gray-700 leading-relaxed">
+                            <p>Creating <span class="definable-word cursor-pointer hover:bg-yellow-100 px-1 rounded transition-colors" data-word="meaningful" data-definition="important; significant" data-cultural-note="In Spanish culture, personal relationships often come before business">meaningful</span> connections at work requires understanding cultural <span class="definable-word cursor-pointer hover:bg-yellow-100 px-1 rounded transition-colors" data-word="nuances" data-definition="subtle differences" data-cultural-note="Spanish: 'matices' - workplace culture differs significantly from Latin American approaches">nuances</span>...</p>
+                        </div>
+                        
+                        <div class="flex items-center justify-between">
+                            <button class="text-primary hover:text-primary/80 font-medium text-sm transition-colors">
+                                <i class="fas fa-book-open mr-2"></i>Continue Reading
+                            </button>
+                            
+                            <div class="flex items-center space-x-3">
+                                <button class="text-gray-400 hover:text-red-500 transition-colors">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="text-gray-400 hover:text-blue-500 transition-colors">
+                                    <i class="fas fa-share"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow duration-200">
+                    <!-- Students studying with books and educational materials -->
+                    <img src="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=300" alt="Students studying with books" class="w-full h-48 object-cover">
+                    
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="flex items-center space-x-2">
+                                <span class="bg-primary text-white text-xs font-medium px-2 py-1 rounded-full">B2</span>
+                                <span class="text-xs text-gray-500">Culture</span>
+                                <span class="text-xs text-gray-400">•</span>
+                                <span class="text-xs text-gray-500">12 min read</span>
+                            </div>
+                            <div class="flex items-center space-x-1">
+                                <i class="fas fa-star text-accent text-sm"></i>
+                                <span class="text-xs text-gray-600">4.5</span>
+                            </div>
+                        </div>
+                        
+                        <h2 class="text-xl font-semibold text-gray-900 mb-3 hover:text-primary cursor-pointer transition-colors">
+                            Understanding American Academic Culture: A Guide for International Students
+                        </h2>
+                        
+                        <div class="article-content mb-4 text-gray-700 leading-relaxed">
+                            <p>American universities <span class="definable-word cursor-pointer hover:bg-yellow-100 px-1 rounded transition-colors" data-word="emphasize" data-definition="give special importance to" data-cultural-note="Unlike Spanish education system which focuses on theoretical knowledge">emphasize</span> <span class="definable-word cursor-pointer hover:bg-yellow-100 px-1 rounded transition-colors" data-word="participation" data-definition="taking part actively" data-cultural-note="More valued than in traditional Spanish classrooms">participation</span> and critical thinking...</p>
+                        </div>
+                        
+                        <div class="flex items-center justify-between">
+                            <button class="text-primary hover:text-primary/80 font-medium text-sm transition-colors">
+                                <i class="fas fa-book-open mr-2"></i>Continue Reading
+                            </button>
+                            
+                            <div class="flex items-center space-x-3">
+                                <button class="text-red-500">
+                                    <i class="fas fa-heart"></i>
+                                </button>
+                                <button class="text-gray-400 hover:text-blue-500 transition-colors">
+                                    <i class="fas fa-share"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow duration-200">
+                    <!-- Technology and innovation in modern workspace -->
+                    <img src="https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=300" alt="Modern technology workspace" class="w-full h-48 object-cover">
+                    
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="flex items-center space-x-2">
+                                <span class="bg-purple-500 text-white text-xs font-medium px-2 py-1 rounded-full">C1</span>
+                                <span class="text-xs text-gray-500">Science</span>
+                                <span class="text-xs text-gray-400">•</span>
+                                <span class="text-xs text-gray-500">15 min read</span>
+                            </div>
+                            <div class="flex items-center space-x-1">
+                                <i class="fas fa-star text-accent text-sm"></i>
+                                <span class="text-xs text-gray-600">4.7</span>
+                            </div>
+                        </div>
+                        
+                        <h2 class="text-xl font-semibold text-gray-900 mb-3 hover:text-primary cursor-pointer transition-colors">
+                            The Ethical Implications of Artificial Intelligence in Modern Society
+                        </h2>
+                        
+                        <div class="article-content mb-4 text-gray-700 leading-relaxed">
+                            <p>As AI systems become increasingly <span class="definable-word cursor-pointer hover:bg-yellow-100 px-1 rounded transition-colors" data-word="sophisticated" data-definition="complex and advanced" data-cultural-note="Spanish: 'sofisticado' - similar meaning but in Spanish culture, simplicity is often preferred">sophisticated</span>, we must <span class="definable-word cursor-pointer hover:bg-yellow-100 px-1 rounded transition-colors" data-word="grapple" data-definition="struggle to deal with" data-cultural-note="Spanish approach might emphasize collective discussion rather than individual struggle">grapple</span> with their societal impact...</p>
+                        </div>
+                        
+                        <div class="flex items-center justify-between">
+                            <button class="text-primary hover:text-primary/80 font-medium text-sm transition-colors">
+                                <i class="fas fa-book-open mr-2"></i>Continue Reading
+                            </button>
+                            
+                            <div class="flex items-center space-x-3">
+                                <button class="text-gray-400 hover:text-red-500 transition-colors">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="text-gray-400 hover:text-blue-500 transition-colors">
+                                    <i class="fas fa-share"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+                <!-- @END_MAP )) -->
+            </div>
+
+            <!-- Load More Button -->
+            <div class="text-center mt-8">
+                <button class="bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium py-3 px-6 rounded-lg transition-colors duration-200">
+                    <i class="fas fa-plus mr-2"></i>Load More Articles
+                </button>
+            </div>
+        </div>
+    </section>
+    <!-- @END_COMPONENT: ArticlesFeed -->
+
+    <!-- @COMPONENT: ProgressTracking [dashboard with analytics and achievements] -->
+    <section id="progress-section" class="section-content hidden">
+        <div class="max-w-6xl mx-auto px-4 py-8">
+            <!-- Header -->
+            <div class="mb-8">
+                <h1 class="text-3xl font-bold text-gray-900 mb-2">Your Learning Progress</h1>
+                <p class="text-gray-600">Track your journey to English mastery</p>
+            </div>
+
+            <!-- Stats Overview -->
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                    <div class="flex items-center justify-between mb-2">
+                        <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
+                            <i class="fas fa-newspaper text-primary text-xl"></i>
+                        </div>
+                        <span class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full">+3 this week</span>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900" data-bind="stats.articlesRead">47</h3>
+                    <p class="text-sm text-gray-600">Articles Read</p>
+                </div>
+
+                <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                    <div class="flex items-center justify-between mb-2">
+                        <div class="w-12 h-12 bg-secondary/10 rounded-full flex items-center justify-center">
+                            <i class="fas fa-book text-secondary text-xl"></i>
+                        </div>
+                        <span class="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded-full">+127 today</span>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900" data-bind="stats.wordsLearned">2,341</h3>
+                    <p class="text-sm text-gray-600">Words Learned</p>
+                </div>
+
+                <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                    <div class="flex items-center justify-between mb-2">
+                        <div class="w-12 h-12 bg-accent/10 rounded-full flex items-center justify-center">
+                            <i class="fas fa-fire text-accent text-xl"></i>
+                        </div>
+                        <span class="text-xs bg-orange-100 text-orange-700 px-2 py-1 rounded-full">Record!</span>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900" data-bind="stats.streakDays">23</h3>
+                    <p class="text-sm text-gray-600">Day Streak</p>
+                </div>
+
+                <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                    <div class="flex items-center justify-between mb-2">
+                        <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
+                            <i class="fas fa-trophy text-purple-600 text-xl"></i>
+                        </div>
+                        <span class="text-xs bg-purple-100 text-purple-700 px-2 py-1 rounded-full">+2 new</span>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900" data-bind="stats.achievements">8</h3>
+                    <p class="text-sm text-gray-600">Achievements</p>
+                </div>
+            </div>
+
+            <!-- Progress Charts -->
+            <div class="grid lg:grid-cols-2 gap-8 mb-8">
+                <!-- Reading Progress Chart -->
+                <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Weekly Reading Progress</h3>
+                    <div class="space-y-4">
+                        <!-- @FUNCTIONALITY: This should implement a real chart using Chart.js or similar -->
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm text-gray-600">Mon</span>
+                            <div class="flex-1 mx-3 bg-gray-200 rounded-full h-2">
+                                <div class="bg-primary h-2 rounded-full" style="width: 80%"></div>
+                            </div>
+                            <span class="text-sm font-medium">4 articles</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm text-gray-600">Tue</span>
+                            <div class="flex-1 mx-3 bg-gray-200 rounded-full h-2">
+                                <div class="bg-primary h-2 rounded-full" style="width: 60%"></div>
+                            </div>
+                            <span class="text-sm font-medium">3 articles</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm text-gray-600">Wed</span>
+                            <div class="flex-1 mx-3 bg-gray-200 rounded-full h-2">
+                                <div class="bg-primary h-2 rounded-full" style="width: 100%"></div>
+                            </div>
+                            <span class="text-sm font-medium">5 articles</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm text-gray-600">Thu</span>
+                            <div class="flex-1 mx-3 bg-gray-200 rounded-full h-2">
+                                <div class="bg-primary h-2 rounded-full" style="width: 40%"></div>
+                            </div>
+                            <span class="text-sm font-medium">2 articles</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm text-gray-600">Fri</span>
+                            <div class="flex-1 mx-3 bg-gray-200 rounded-full h-2">
+                                <div class="bg-primary h-2 rounded-full" style="width: 90%"></div>
+                            </div>
+                            <span class="text-sm font-medium">4 articles</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm text-gray-600">Sat</span>
+                            <div class="flex-1 mx-3 bg-gray-200 rounded-full h-2">
+                                <div class="bg-accent h-2 rounded-full" style="width: 70%"></div>
+                            </div>
+                            <span class="text-sm font-medium">3 articles</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm text-gray-600">Sun</span>
+                            <div class="flex-1 mx-3 bg-gray-200 rounded-full h-2">
+                                <div class="bg-accent h-2 rounded-full" style="width: 50%"></div>
+                            </div>
+                            <span class="text-sm font-medium">2 articles</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Level Progress -->
+                <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Level Progression</h3>
+                    <div class="space-y-6">
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-sm font-medium text-gray-700">Current Level: B1 Intermediate</span>
+                                <span class="text-sm text-gray-500">68% to B2</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-3">
+                                <div class="bg-gradient-to-r from-primary to-secondary h-3 rounded-full" style="width: 68%"></div>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-2">1,240 more words to reach B2 Upper Intermediate</p>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="text-center p-4 bg-gray-50 rounded-lg">
+                                <div class="text-2xl font-bold text-primary" data-bind="skills.reading">B2</div>
+                                <div class="text-sm text-gray-600">Reading</div>
+                            </div>
+                            <div class="text-center p-4 bg-gray-50 rounded-lg">
+                                <div class="text-2xl font-bold text-secondary" data-bind="skills.vocabulary">B1</div>
+                                <div class="text-sm text-gray-600">Vocabulary</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Achievements -->
+            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200 mb-8">
+                <h3 class="text-lg font-semibold text-gray-900 mb-4">Recent Achievements</h3>
+                <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <!-- @MAP: achievements.map(achievement => ( -->
+                    <div class="flex items-center space-x-3 p-3 bg-gradient-to-r from-primary/10 to-primary/5 rounded-lg">
+                        <div class="w-10 h-10 bg-primary rounded-full flex items-center justify-center">
+                            <i class="fas fa-book text-white"></i>
+                        </div>
+                        <div>
+                            <div class="font-medium text-gray-900">Speed Reader</div>
+                            <div class="text-xs text-gray-500">Read 5 articles in one day</div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center space-x-3 p-3 bg-gradient-to-r from-accent/10 to-accent/5 rounded-lg">
+                        <div class="w-10 h-10 bg-accent rounded-full flex items-center justify-center">
+                            <i class="fas fa-fire text-white"></i>
+                        </div>
+                        <div>
+                            <div class="font-medium text-gray-900">Streak Master</div>
+                            <div class="text-xs text-gray-500">20 day learning streak</div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center space-x-3 p-3 bg-gradient-to-r from-secondary/10 to-secondary/5 rounded-lg">
+                        <div class="w-10 h-10 bg-secondary rounded-full flex items-center justify-center">
+                            <i class="fas fa-graduation-cap text-white"></i>
+                        </div>
+                        <div>
+                            <div class="font-medium text-gray-900">Vocabulary Builder</div>
+                            <div class="text-xs text-gray-500">Learned 100 new words</div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center space-x-3 p-3 bg-gradient-to-r from-purple-100 to-purple-50 rounded-lg">
+                        <div class="w-10 h-10 bg-purple-500 rounded-full flex items-center justify-center">
+                            <i class="fas fa-globe text-white"></i>
+                        </div>
+                        <div>
+                            <div class="font-medium text-gray-900">Culture Explorer</div>
+                            <div class="text-xs text-gray-500">Read 10 cultural articles</div>
+                        </div>
+                    </div>
+                    <!-- @END_MAP )) -->
+                </div>
+            </div>
+
+            <!-- Learning Recommendations -->
+            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                <h3 class="text-lg font-semibold text-gray-900 mb-4">Personalized Recommendations</h3>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="border border-gray-200 rounded-lg p-4">
+                        <div class="flex items-center space-x-3 mb-3">
+                            <div class="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center">
+                                <i class="fas fa-target text-primary text-sm"></i>
+                            </div>
+                            <h4 class="font-medium text-gray-900">Focus Area</h4>
+                        </div>
+                        <p class="text-sm text-gray-700 mb-2">Work on advanced vocabulary to reach B2 level faster</p>
+                        <button class="text-primary hover:text-primary/80 text-sm font-medium transition-colors">
+                            View Vocabulary Exercises <i class="fas fa-arrow-right ml-1"></i>
+                        </button>
+                    </div>
+
+                    <div class="border border-gray-200 rounded-lg p-4">
+                        <div class="flex items-center space-x-3 mb-3">
+                            <div class="w-8 h-8 bg-secondary/10 rounded-full flex items-center justify-center">
+                                <i class="fas fa-lightbulb text-secondary text-sm"></i>
+                            </div>
+                            <h4 class="font-medium text-gray-900">Suggested Topics</h4>
+                        </div>
+                        <p class="text-sm text-gray-700 mb-2">Try reading more business articles to expand professional vocabulary</p>
+                        <button class="text-secondary hover:text-secondary/80 text-sm font-medium transition-colors">
+                            Browse Business Articles <i class="fas fa-arrow-right ml-1"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- @END_COMPONENT: ProgressTracking -->
+
+    <!-- @COMPONENT: WordDefinitionModal [popup for word definitions and cultural context] -->
+    <div id="definition-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50 p-4">
+        <div class="bg-white rounded-xl max-w-md w-full p-6 transform transition-all duration-200 scale-95">
+            <div class="flex justify-between items-start mb-4">
+                <h3 class="text-xl font-semibold text-gray-900" id="modal-word">accelerated</h3>
+                <button class="text-gray-400 hover:text-gray-600 transition-colors" id="close-modal">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            
+            <div class="space-y-4">
+                <div>
+                    <h4 class="font-medium text-gray-900 mb-2">Definition</h4>
+                    <p class="text-gray-700" id="modal-definition">made faster; sped up</p>
+                </div>
+                
+                <div>
+                    <h4 class="font-medium text-gray-900 mb-2">Cultural Context</h4>
+                    <p class="text-gray-700" id="modal-cultural-note">In Spanish: 'acelerado' - similar concept</p>
+                </div>
+                
+                <div>
+                    <h4 class="font-medium text-gray-900 mb-2">Example</h4>
+                    <p class="text-gray-700 italic">"The pandemic has accelerated changes in how we work."</p>
+                </div>
+            </div>
+            
+            <div class="flex items-center justify-between mt-6">
+                <button class="flex items-center space-x-2 text-gray-600 hover:text-gray-800 transition-colors">
+                    <i class="fas fa-volume-up"></i>
+                    <span class="text-sm">Pronunciation</span>
+                </button>
+                
+                <button class="bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-lg font-medium transition-colors" data-event="click:saveWord">
+                    <i class="fas fa-bookmark mr-2"></i>Save Word
+                </button>
+            </div>
+        </div>
+    </div>
+    <!-- @END_COMPONENT: WordDefinitionModal -->
+
+    <!-- Mobile Navigation -->
+    <div class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 md:hidden z-40">
+        <div class="grid grid-cols-3 py-2">
+            <button class="mobile-nav-btn flex flex-col items-center py-2 text-gray-600 hover:text-primary transition-colors" data-section="home">
+                <i class="fas fa-home text-xl mb-1"></i>
+                <span class="text-xs">Home</span>
+            </button>
+            <button class="mobile-nav-btn flex flex-col items-center py-2 text-primary" data-section="articles">
+                <i class="fas fa-newspaper text-xl mb-1"></i>
+                <span class="text-xs">Articles</span>
+            </button>
+            <button class="mobile-nav-btn flex flex-col items-center py-2 text-gray-600 hover:text-primary transition-colors" data-section="progress">
+                <i class="fas fa-chart-line text-xl mb-1"></i>
+                <span class="text-xs">Progress</span>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            // Navigation functionality
+            const navButtons = document.querySelectorAll('.nav-btn, .mobile-nav-btn');
+            const sections = document.querySelectorAll('.section-content');
+            
+            function showSection(sectionId) {
+                // Hide all sections
+                sections.forEach(section => {
+                    section.classList.add('hidden');
+                });
+                
+                // Show selected section
+                const targetSection = document.getElementById(sectionId + '-section');
+                if (targetSection) {
+                    targetSection.classList.remove('hidden');
+                }
+                
+                // Update navigation state
+                navButtons.forEach(btn => {
+                    btn.classList.remove('text-primary');
+                    btn.classList.add('text-gray-600');
+                });
+                
+                // Highlight active nav
+                const activeNavs = document.querySelectorAll(`[data-section="${sectionId}"]`);
+                activeNavs.forEach(nav => {
+                    nav.classList.remove('text-gray-600');
+                    nav.classList.add('text-primary');
+                });
+            }
+            
+            // Add click listeners to navigation
+            navButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const section = button.dataset.section;
+                    showSection(section);
+                });
+            });
+            
+            // Language selection
+            const languageCards = document.querySelectorAll('.language-card');
+            languageCards.forEach(card => {
+                card.addEventListener('click', () => {
+                    // Remove active state from all cards
+                    languageCards.forEach(c => {
+                        c.classList.remove('border-primary', 'bg-primary/5');
+                        c.classList.add('border-gray-200');
+                    });
+                    
+                    // Add active state to clicked card
+                    card.classList.remove('border-gray-200');
+                    card.classList.add('border-primary', 'bg-primary/5');
+                    
+                    // TODO: Store language selection and redirect to articles
+                    setTimeout(() => {
+                        showSection('articles');
+                    }, 500);
+                });
+            });
+            
+            // Word definition functionality
+            const definableWords = document.querySelectorAll('.definable-word');
+            const modal = document.getElementById('definition-modal');
+            const modalWord = document.getElementById('modal-word');
+            const modalDefinition = document.getElementById('modal-definition');
+            const modalCulturalNote = document.getElementById('modal-cultural-note');
+            const closeModal = document.getElementById('close-modal');
+            
+            definableWords.forEach(word => {
+                word.addEventListener('click', () => {
+                    modalWord.textContent = word.dataset.word;
+                    modalDefinition.textContent = word.dataset.definition;
+                    modalCulturalNote.textContent = word.dataset.culturalNote;
+                    
+                    modal.classList.remove('hidden');
+                    modal.classList.add('flex');
+                    
+                    // Add animation
+                    const modalContent = modal.querySelector('.bg-white');
+                    modalContent.classList.remove('scale-95');
+                    modalContent.classList.add('scale-100');
+                });
+            });
+            
+            closeModal.addEventListener('click', () => {
+                const modalContent = modal.querySelector('.bg-white');
+                modalContent.classList.remove('scale-100');
+                modalContent.classList.add('scale-95');
+                
+                setTimeout(() => {
+                    modal.classList.add('hidden');
+                    modal.classList.remove('flex');
+                }, 200);
+            });
+            
+            // Close modal on background click
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    closeModal.click();
+                }
+            });
+            
+            // Initialize with articles section visible (simulating user has selected language)
+            showSection('articles');
+            
+            // TODO: Implement API integrations
+            // TODO: Add real progress tracking
+            // TODO: Implement comprehension questions
+            // TODO: Add article recommendation algorithm
+            // TODO: Implement user authentication
+        })();
+    </script>
+</body>
+</html>

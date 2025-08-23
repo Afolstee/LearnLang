@@ -34,6 +34,8 @@ export async function defineWord(
   context?: string
 ): Promise<WordDefinition> {
   try {
+    const { translateToNativeLanguage } = await import('./translate');
+    
     const prompt = `
     Define the English word "${word}" for a native ${nativeLanguage} speaker learning English.
     ${context ? `Context: "${context}"` : ''}
@@ -41,15 +43,15 @@ export async function defineWord(
     Provide:
     1. A clear, simple definition
     2. Cultural context explaining how this concept might differ in ${nativeLanguage} culture
-    3. Translation to ${nativeLanguage}
-    4. An example sentence using the word
+    3. An example sentence using the word
+    
+    Do NOT include a translation - that will be handled separately.
     
     Respond with JSON in this format:
     {
       "word": "${word}",
       "definition": "clear definition",
       "culturalContext": "cultural explanation",
-      "nativeTranslation": "translation in ${nativeLanguage}",
       "exampleSentence": "example sentence"
     }
     `;
@@ -70,7 +72,20 @@ export async function defineWord(
     });
 
     const result = JSON.parse(response.choices[0].message.content || "{}");
-    return result as WordDefinition;
+    
+    // Use Google Translate for the native translation
+    let nativeTranslation = "";
+    try {
+      nativeTranslation = await translateToNativeLanguage(word, nativeLanguage as any);
+    } catch (error) {
+      console.error("Translation failed, using fallback:", error);
+      nativeTranslation = word; // fallback to original word
+    }
+    
+    return {
+      ...result,
+      nativeTranslation
+    } as WordDefinition;
   } catch (error) {
     throw new Error("Failed to define word: " + (error as Error).message);
   }

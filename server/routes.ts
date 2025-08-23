@@ -3,6 +3,7 @@ import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { insertUserSchema, insertUserProgressSchema, insertVocabularySchema, LanguageEnum, LevelEnum, CategoryEnum } from "@shared/schema";
 import { defineWord, adaptArticle, generateComprehensionQuestions } from "./services/openai";
+import { translateToNativeLanguage } from "./services/translate";
 import { z } from "zod";
 
 export async function registerRoutes(app: Express): Promise<Server> {
@@ -182,6 +183,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.status(500).json({ message: "Failed to generate questions", error: (error as Error).message });
     }
   });
+
 
   const httpServer = createServer(app);
   return httpServer;

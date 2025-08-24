@@ -1,5 +1,8 @@
+import 'dotenv/config';
 import { VercelRequest, VercelResponse } from '@vercel/node';
-import { storage } from '../server/storage';
+import { DatabaseStorage } from '../server/storage';
+
+const storage = new DatabaseStorage();
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   const { method } = req;

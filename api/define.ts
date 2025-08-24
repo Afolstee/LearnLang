@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import { VercelRequest, VercelResponse } from '@vercel/node';
 import { defineWord } from '../server/services/openai';
 import { LanguageEnum } from '../shared/schema';

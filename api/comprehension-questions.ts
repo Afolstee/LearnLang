@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import { VercelRequest, VercelResponse } from '@vercel/node';
 import { generateComprehensionQuestions } from '../server/services/openai';
 import { LevelEnum } from '../shared/schema';

@@ -4,7 +4,7 @@
   "outputDirectory": "client/dist",
   "functions": {
     "api/**/*.ts": {
-      "runtime": "nodejs18.x"
+      "runtime": "@vercel/node@3.0.0"
     }
   },
   "routes": [
@@ -16,8 +16,5 @@
       "src": "/(.*)",
       "dest": "/$1"
     }
-  ],
-  "env": {
-    "DATABASE_URL": "@database_url"
-  }
+  ]
 }
